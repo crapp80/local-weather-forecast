@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Local Weather</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid text-center">
+    <div class="row">
+      <p><br><br></p>
+      <div class="col-xs-6 col-xs-offset-3 custom">
+        <p><br><br></p>
+        <h1>Local Weather Forecast</h1>
+        <p class="city"></p>
+        <p class="temp"></p>
+        <p><img class="icon" src=""><br></p>
+        <label class="radio-inline">
+        <input type="radio" name="type" id="celsius" checked="checked" value="celsius"> Celsius
+        </label>
+        <label class="radio-inline">
+        <input type="radio" name="type" id="fahrenheit" value="fahrenheit"> Fahrenheit
+        </label>
+        <p><br></p>
+        <p class="desc"></p>
+        <p class="link">
+        For further weather infos, feel free to visit <a class="a-color-custom" href="http://openweathermap.org" target="blank">OpenWeatherMap</a>.
+        </p>
+        <p class="ip"></p>
+      </div>
+    </div>
+  </div>
+<script>
+  var temp;
+  var urlw = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  var urll = "http://ip-api.com/json"
+    var getLocation = function(location) {
+      var city = location.city
+      var countrycode = location.countryCode
+      var ip = location.query
+      var lat = location.lat
+      var long = location.lon
+      urlw += city + ',' + countrycode + '&APPID=36085cec7eeb372e57f34cbb985f8fa7&type=like&units=metric&lang=en'
+      $(".city").html('Your current location: ' + city);
+      $(".ip").html('(Your IP: ' + ip + ')');
+      $.getJSON(urlw, getWeather, 'jsonp');
+    };
+    var getWeather = function(data) {
+      temp = data.main.temp
+      var wind = data.wind.speed
+      var desc = data.weather[0].description
+      var icon = data.weather[0].icon
+      desc = desc.toLowerCase()
+      var name = data.name
+      var urli = 'http://openweathermap.org/img/w/' + icon + '.png'
+      $(".temp").html(Math.round(temp) + '&#176 C'); //'Aktuelle Temperatur: '    '&#176 C'
+      $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
+      $(".icon").attr("src", urli);
+    };
+$( document ).ready(function() {
+    $.getJSON(urll, getLocation);
+    $("label input:radio").change(function () {
+        if ($(this).val() == "fahrenheit") {
+          var tempf = temp;
+          tempf = tempf * 1.8000 + 32;
+          $(".temp").html(Math.round(tempf) + '&#176 F');
+          }
+        else if ($(this).val() == "celsius") {
+          var tempc = temp;
+          tempc = Math.round(tempc);
+          $(".temp").html(tempc + '&#176 C');
+          }
+
+    });
+});
+</script>
+</body>
+</html>
+
+
+https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=morelike:Marie_Curie%7Cradium&srlimit=10&srprop=size&formatversion=1

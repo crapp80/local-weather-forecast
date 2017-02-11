@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+body {
+  background-color: #ebe5ef;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+h1 {font-size: 50px;}
+
+.a-color-custom {color: #ccd1d1;}
+.a-color-custom:hover, .a-color-custom:focus {color: #ffffff;}
+
+.link a {color: orange;}
+
+.custom {
+  color: #ffffff;
+  font-size: 24px;
+  background-image: url('../images/bg-custom.jpg');
+  background-size: 100% 100%;
+  height: 90vh;
+  margin-bottom: 0px;
+}
+
+.temp {font-size: 30px;}
+.ip {font-size: 16px;}
