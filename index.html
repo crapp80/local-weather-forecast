@@ -42,7 +42,7 @@
       var wind = data.current_observation.wind_kph
       var desc = data.current_observation.icon
       var icon = data.current_observation.icon_url
-      var city = data.current_observation[1].display_location.full
+      var city = data.current_observation.display_location.full
       desc = desc.toLowerCase()
       $(".temp").html(Math.round(temp) + '&#176 C');
       $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
