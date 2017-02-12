@@ -38,16 +38,16 @@
 <script>
   var temp;
   var urlw = 'https://api.wunderground.com/api/7e7a8f6cca8f6f2f/conditions/q/';
-  var urll = "https://freegeoip.net/json/";
+  var urll = "https://api.wunderground.com/api/7e7a8f6cca8f6f2f/geolookup/q/autoip.json"; //https://freegeoip.net/json/
     var getLocation = function(location) {
       var city = location.city
       var countryname = location.country_name
-      var ip = location.ip
-      var lat = location.latitude
-      var long = location.longitude
+      //var ip = location.ip
+      var lat = location.lat
+      var long = location.lon
       urlw += countryname + '/' + city + '.json'
       $(".city").html('Your current location: ' + city);
-      $(".ip").html('(Your IP: ' + ip + ')');
+      //$(".ip").html('(Your IP: ' + ip + ')');
       $.getJSON(urlw, getWeather, 'jsonp');
     };
     var getWeather = function(data) {
