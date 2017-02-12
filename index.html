@@ -37,30 +37,30 @@
   </div>
 <script>
   var temp;
-  var urlw = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  var urlw = 'https://api.wunderground.com/api/7e7a8f6cca8f6f2f/conditions/q/';
   var urll = "https://freegeoip.net/json/";
     var getLocation = function(location) {
       var city = location.city
-      var countrycode = location.country_code
+      var countryname = location.country_name
       var ip = location.ip
       var lat = location.latitude
       var long = location.longitude
-      urlw += city + ',' + countrycode + '&APPID=36085cec7eeb372e57f34cbb985f8fa7&type=like&units=metric&lang=en'
+      urlw += countryname + '/' + city + '.json'
       $(".city").html('Your current location: ' + city);
       $(".ip").html('(Your IP: ' + ip + ')');
       $.getJSON(urlw, getWeather, 'jsonp');
     };
     var getWeather = function(data) {
-      temp = data.main.temp
-      var wind = data.wind.speed
-      var desc = data.weather[0].description
-      var icon = data.weather[0].icon
+      temp = data.current_observation.temp_c
+      var wind = data.current_observation.wind_kph
+      var desc = data.current_observation.icon
+      var icon = data.current_observation.icon_url
       desc = desc.toLowerCase()
-      var name = data.name
-      var urli = 'http://openweathermap.org/img/w/' + icon + '.png'
+      //var name = data.name
+      //var urli = 'http://openweathermap.org/img/w/' + icon + '.png'
       $(".temp").html(Math.round(temp) + '&#176 C'); //'Aktuelle Temperatur: '    '&#176 C'
       $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
-      $(".icon").attr("src", urli);
+      $(".icon").attr("src", icon);
     };
 $( document ).ready(function() {
     $.getJSON(urll, getLocation);
