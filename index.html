@@ -29,39 +29,28 @@
         <p><br></p>
         <p class="desc"></p>
         <p class="link">
-        For further weather infos, please visit <a class="a-color-custom" href="https://www.wunderground.com" target="blank">Weather Underground</a>.
+        For further weather infos, visit <a class="a-color-custom" href="https://www.wunderground.com" target="blank">Weather Underground</a>.
         </p>
         <p class="ip"></p>
       </div>
     </div>
   </div>
 <script>
-  var temp;
-  var urlw = 'https://api.wunderground.com/api/7e7a8f6cca8f6f2f/conditions/q/';
-  var urll = "https://api.wunderground.com/api/7e7a8f6cca8f6f2f/geolookup/q/autoip.json"; //https://freegeoip.net/json/
-    var getLocation = function(location) {
-      var city = location.city
-      var countryname = location.country_name
-      //var ip = location.ip
-      var lat = location.lat
-      var long = location.lon
-      urlw += countryname + '/' + city + '.json'
-      $(".city").html('Your current location: ' + city);
-      //$(".ip").html('(Your IP: ' + ip + ')');
-      $.getJSON(urlw, getWeather, 'jsonp');
-    };
+  var url = 'http://api.wunderground.com/api/7e7a8f6cca8f6f2f/geolookup/conditions/forecast/q/autoip.json';
     var getWeather = function(data) {
       temp = data.current_observation.temp_c
       var wind = data.current_observation.wind_kph
       var desc = data.current_observation.icon
       var icon = data.current_observation.icon_url
+      var city = data.current_observation[1].display_location.full
       desc = desc.toLowerCase()
-      $(".temp").html(Math.round(temp) + '&#176 C'); //'Aktuelle Temperatur: '    '&#176 C'
+      $(".temp").html(Math.round(temp) + '&#176 C');
       $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
+      $(".city").html('Your current location: ' + city);
       $(".icon").attr("src", icon);
     };
 $( document ).ready(function() {
-    $.getJSON(urll, getLocation);
+    $.getJSON(url, getWeather);
     $("label input:radio").change(function () {
         if ($(this).val() == "fahrenheit") {
           var tempf = temp;
