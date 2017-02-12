@@ -29,7 +29,7 @@
         <p><br></p>
         <p class="desc"></p>
         <p class="link">
-        For further weather infos, feel free to visit <a class="a-color-custom" href="http://openweathermap.org" target="blank">OpenWeatherMap</a>.
+        For further weather infos, please visit <a class="a-color-custom" href="https://www.wunderground.com" target="blank">Weather Underground</a>.
         </p>
         <p class="ip"></p>
       </div>
@@ -56,8 +56,6 @@
       var desc = data.current_observation.icon
       var icon = data.current_observation.icon_url
       desc = desc.toLowerCase()
-      //var name = data.name
-      //var urli = 'http://openweathermap.org/img/w/' + icon + '.png'
       $(".temp").html(Math.round(temp) + '&#176 C'); //'Aktuelle Temperatur: '    '&#176 C'
       $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
       $(".icon").attr("src", icon);
