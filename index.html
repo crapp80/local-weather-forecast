@@ -1,69 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Local Weather</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Local Weather</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div class="container-fluid text-center">
-    <div class="row">
+<div class="container-fluid text-center">
+  <div class="row">
+    <p><br><br></p>
+    <div class="col-xs-6 col-xs-offset-3 custom">
       <p><br><br></p>
-      <div class="col-xs-6 col-xs-offset-3 custom">
-        <p><br><br></p>
-        <h1>Local Weather Forecast</h1>
-        <p class="city"></p>
-        <p class="temp"></p>
-        <p><img class="icon" src=""><br></p>
-        <label class="radio-inline">
-        <input type="radio" name="type" id="celsius" checked="checked" value="celsius"> Celsius
-        </label>
-        <label class="radio-inline">
-        <input type="radio" name="type" id="fahrenheit" value="fahrenheit"> Fahrenheit
-        </label>
-        <p><br></p>
-        <p class="desc"></p>
-        <p class="link">
-        For further weather infos, visit <a class="a-color-custom" href="https://www.wunderground.com" target="blank">Weather Underground</a>.
-        </p>
-        <p class="ip"></p>
-      </div>
+      <h1>Local Weather Forecast</h1>
+      <p class="city"></p>
+      <p class="temp"></p>
+      <p><img class="icon" src=""><br></p>
+      <label class="radio-inline">
+      <input type="radio" name="type" id="celsius" checked="checked" value="celsius"> Celsius</input>
+      </label>
+      <label class="radio-inline">
+      <input type="radio" name="type" id="fahrenheit" value="fahrenheit"> Fahrenheit</input>
+      </label>
+      <p><br></p>
+      <p class="desc"></p>
+      <p class="link">
+      For further weather infos, visit <a class="a-color-custom" href="https://www.wunderground.com" target="blank">Weather Underground</a>.
+      </p>
     </div>
   </div>
+</div>
 <script>
-  var url = 'https://api.wunderground.com/api/7e7a8f6cca8f6f2f/geolookup/conditions/forecast/q/autoip.json';
-    var getWeather = function(data) {
-      temp = data.current_observation.temp_c
-      var wind = data.current_observation.wind_kph
-      var desc = data.current_observation.icon
-      var icon = data.current_observation.icon_url
-      var city = data.current_observation.display_location.full
-      desc = desc.toLowerCase()
-      $(".temp").html(Math.round(temp) + '&#176 C');
-      $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
-      $(".city").html('Your current location: ' + city);
-      $(".icon").attr("src", icon);
-    };
+var url = 'https://api.wunderground.com/api/7e7a8f6cca8f6f2f/geolookup/conditions/forecast/q/autoip.json';
+  var getWeather = function(data) {
+    temp = data.current_observation.temp_c
+    var wind = data.current_observation.wind_kph
+    var desc = data.current_observation.icon
+    var icon = data.current_observation.icon_url
+    var city = data.current_observation.display_location.full
+    desc = desc.toLowerCase()
+    $(".temp").html(Math.round(temp) + '&#176 C');
+    $(".desc").html('Weather condition is ' + desc + ', at a wind speed of ' + wind + ' m/s.');
+    $(".city").html('Your current location: ' + city);
+    $(".icon").attr("src", icon);
+  };
 $( document ).ready(function() {
-    $.getJSON(url, getWeather);
-    $("label input:radio").change(function () {
-        if ($(this).val() == "fahrenheit") {
-          var tempf = temp;
-          tempf = tempf * 1.8000 + 32;
-          $(".temp").html(Math.round(tempf) + '&#176 F');
-          }
-        else if ($(this).val() == "celsius") {
-          var tempc = temp;
-          tempc = Math.round(tempc);
-          $(".temp").html(tempc + '&#176 C');
-          }
-
-    });
+  $.getJSON(url, getWeather);
+  $("label input:radio").change(function () {
+      if ($(this).val() == "fahrenheit") {
+        var tempf = temp;
+        tempf = tempf * 1.8000 + 32;
+        $(".temp").html(Math.round(tempf) + '&#176 F');
+        }
+      else if ($(this).val() == "celsius") {
+        var tempc = temp;
+        tempc = Math.round(tempc);
+        $(".temp").html(tempc + '&#176 C');
+        }
+  });
 });
 </script>
 </body>
